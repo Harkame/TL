@@ -4,13 +4,14 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Map;
+import java.util.Observable;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
 import model.tache.liste_tache.ListeTache;
 
-public class TreeMapCategorie implements SortedMap <String, ListeTache>, Serializable
+public class TreeMapCategorie extends Observable implements SortedMap <String, ListeTache>, Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -31,6 +32,8 @@ public class TreeMapCategorie implements SortedMap <String, ListeTache>, Seriali
 	public void clear()
 	{
 		valeurs.clear();
+		setChanged();
+		notifyObservers();
 	}
 
 	@Override
@@ -60,7 +63,10 @@ public class TreeMapCategorie implements SortedMap <String, ListeTache>, Seriali
 	@Override
 	public ListeTache put(String key, ListeTache value)
 	{
-		return valeurs.put(key.toUpperCase(), value);
+		ListeTache resultat = valeurs.put(key.toUpperCase(), value);
+		setChanged();
+		notifyObservers();
+		return resultat;
 	}
 
 	@Override
@@ -72,7 +78,10 @@ public class TreeMapCategorie implements SortedMap <String, ListeTache>, Seriali
 	@Override
 	public ListeTache remove(Object key)
 	{
-		return valeurs.remove(((String) key).toUpperCase());
+		ListeTache resultat = valeurs.remove(((String) key).toUpperCase());
+		setChanged();
+		notifyObservers();
+		return resultat;
 	}
 
 	@Override

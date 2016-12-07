@@ -1,26 +1,24 @@
 package model.tache.liste_tache;
 
-import java.beans.XMLDecoder;
-import java.beans.XMLEncoder;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import model.tache.Tache;
-import model.tache.TachePonctuelle;
-import model.tache.categorie.TreeMapCategorie;
 
-public abstract class ListeTache implements SortedSet<Tache>, Serializable
+public abstract class ListeTache extends Observable implements SortedSet<Tache>, Serializable
 {
 	private static final long serialVersionUID       = 1L;
 	
-	private static final String CHEMIN_SERIALIZATION = "/home/harkame/test/toto.data"; //Repertoire courant
-	
 	private SortedSet<Tache> liste_taches;
+	private Collection<Observer> observers;
 
     public final Set<Tache> getListe_taches()
     {
@@ -30,12 +28,14 @@ public abstract class ListeTache implements SortedSet<Tache>, Serializable
     public ListeTache()
     {
         liste_taches = new TreeSet<Tache>();
+        observers    = new ArrayList<Observer>();
     }
     
     @SuppressWarnings({"rawtypes", "unchecked"})
 	public ListeTache(Comparator p_comparator)
     {
         liste_taches = new TreeSet<Tache>(p_comparator);
+        observers    = new ArrayList<Observer>();
     }
 
     @Override
@@ -113,13 +113,19 @@ public abstract class ListeTache implements SortedSet<Tache>, Serializable
     @Override
     public final boolean add(Tache tache)
     {
-        return liste_taches.add(tache);
+        boolean resultat = liste_taches.add(tache);
+        setChanged();
+        notifyObservers();
+        return resultat;
     }
 
     @Override
     public final boolean remove(Object o)
     {
-        return liste_taches.remove(o);
+        boolean resultat = liste_taches.remove(o);
+        setChanged();
+        notifyObservers();
+        return resultat;
     }
 
     @Override
@@ -131,25 +137,36 @@ public abstract class ListeTache implements SortedSet<Tache>, Serializable
     @Override
     public final boolean addAll(Collection<? extends Tache> collection)
     {
-        return liste_taches.addAll(collection);
+        boolean resultat = liste_taches.addAll(collection);
+        setChanged();
+        notifyObservers();
+        return resultat;
     }
 
     @Override
     public final boolean retainAll(Collection<?> p_collection)
     {
-        return liste_taches.retainAll(p_collection);
+        boolean resultat = liste_taches.retainAll(p_collection);
+        setChanged();
+        notifyObservers();
+        return resultat;
     }
 
     @Override
     public final boolean removeAll(Collection<?> p_collection)
     {
-        return liste_taches.removeAll(p_collection);
+        boolean resultat = liste_taches.removeAll(p_collection);
+        setChanged();
+        notifyObservers();
+        return resultat;
     }
 
     @Override
     public final void clear()
     {
         liste_taches.clear();
+        setChanged();
+        notifyObservers();
     }
 
     @Override

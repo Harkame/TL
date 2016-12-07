@@ -5,13 +5,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map.Entry;
 
-import org.joda.time.DateTime;
-
 import model.tache.Tache;
-import model.tache.TachePonctuelle;
 import model.tache.liste_tache.ListeTache;
 import model.tache.liste_tache.ListeTacheSimple;
 
@@ -23,7 +21,7 @@ public abstract class Categories
 
 	private static final String CHEMIN_SERIALIZATION           = "/home/harkame/test/toto.data"; //Repertoire courant
 	
-	private static TreeMapCategorie categories;
+	public static TreeMapCategorie categories;
 	
 	static
 	{
@@ -111,6 +109,16 @@ public abstract class Categories
 	public static void ajouterTache(String p_categorie, Tache p_tache)
 	{
 		categories.get(p_categorie).add(p_tache);
+	}
+	
+	public static Collection<String> getCategories()
+	{
+		Collection<String> resultat = new ArrayList<String>();
+		
+		for (Entry<String, ListeTache> e : categories.entrySet())
+			resultat.add(e.getKey());
+		
+		return resultat;
 	}
 	
 	public static void serialize()
