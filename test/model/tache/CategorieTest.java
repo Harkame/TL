@@ -1,26 +1,23 @@
 package model.tache;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import view.popup.tache.Categorie;
-
 @RunWith(Parameterized.class)
 public class CategorieTest
 {
-	private String categorie1;
-	private String categorie2;
-	private String expected1;
-	private String expected2;
-	private Categorie categorie;
+	private String		categorie1;
+	private String		categorie2;
+	private String		expected1;
+	private String		expected2;
+	private Categorie	categorie;
 
 	public CategorieTest(String p_categorie1, String p_categorie2, String p_expected1, String p_expected2)
 	{
@@ -34,10 +31,10 @@ public class CategorieTest
 	public static Collection<Object[]> setParameters()
 	{
 		Collection<Object[]> params = new ArrayList<>();
-		params.add(new Object[] { "LECTURE", "REVISIONS", "LECTURE", "REVISIONS" });
-		params.add(new Object[] { "LECTURE", "revisions", "LECtURE", "REVISIONS" });
-		params.add(new Object[] { "lecture", "REVISIONS", "LECTURE", "REVISIONS" });
-		params.add(new Object[] { "lecture", "revisions", "LECTURE", "REVISIONS" });
+		params.add(new Object[] {"LECTURE", "REVISIONS", "LECTURE", "REVISIONS"});
+		params.add(new Object[] {"LECTURE", "revisions", "LECtURE", "REVISIONS"});
+		params.add(new Object[] {"lecture", "REVISIONS", "LECTURE", "REVISIONS"});
+		params.add(new Object[] {"lecture", "revisions", "LECTURE", "REVISIONS"});
 
 		return params;
 	}
