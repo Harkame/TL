@@ -6,4 +6,3 @@ import java.awt.event.ActionListener;
 import view.DefaultView;
 import view.MenuView;
 import view.TachesView;
-

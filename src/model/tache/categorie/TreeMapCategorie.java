@@ -11,23 +11,23 @@ import java.util.TreeMap;
 
 import model.tache.liste_tache.ListeTache;
 
-public class TreeMapCategorie extends Observable implements SortedMap <String, ListeTache>, Serializable
+public class TreeMapCategorie extends Observable implements SortedMap<String, ListeTache>, Serializable
 {
 	private static final long serialVersionUID = 1L;
-	
+
 	private TreeMap<String, ListeTache> valeurs;
 
 	public TreeMapCategorie()
 	{
 		valeurs = new TreeMap<String, ListeTache>();
 	}
-	
+
 	@Override
-    public Comparator<? super String> comparator()
-    {
-        return valeurs.comparator();
-    }
-	
+	public Comparator<? super String> comparator()
+	{
+		return valeurs.comparator();
+	}
+
 	@Override
 	public void clear()
 	{
@@ -137,7 +137,7 @@ public class TreeMapCategorie extends Observable implements SortedMap <String, L
 	{
 		return valeurs.values();
 	}
-	
+
 	@Override
 	public String toString()
 	{
